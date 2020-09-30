@@ -16,16 +16,6 @@ namespace MusicalPerformers.Model.Database.Interactions
         private static QueryExecutor _instance;
 
         /// <summary>
-        /// Подключение к базе данных SQL Server.
-        /// </summary>
-        public SqlConnection Connection { get; set; }
-
-        /// <summary>
-        /// Доступ к пользовательским данным.
-        /// </summary>
-        public SqlDataAdapter DataAdapter { get; set; }
-
-        /// <summary>
         /// Инициализирует новый экземпляр класса QueryExecutor.
         /// </summary>
         private QueryExecutor()
@@ -42,6 +32,44 @@ namespace MusicalPerformers.Model.Database.Interactions
         {
             Connection = new SqlConnection(configDb.ConnectionString);
             DataAdapter = new SqlDataAdapter();
+        }
+
+        /// <summary>
+        /// Подключение к базе данных SQL Server.
+        /// </summary>
+        public SqlConnection Connection { get; set; }
+
+        /// <summary>
+        /// Доступ к пользовательским данным.
+        /// </summary>
+        public SqlDataAdapter DataAdapter { get; set; }
+        /// <summary>
+        /// Получение экземпляр объекта класса QueryExecutor.
+        /// </summary>
+        /// <returns>Экземпляр объекта класса QueryExecutor.</returns>
+        public static QueryExecutor GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new QueryExecutor();
+            }
+
+            return _instance;
+        }
+
+        /// <summary>
+        /// Получение экземпляр объекта класса QueryExecutor.
+        /// </summary>
+        /// <param name="configDb">Конфигурация базы данных.</param>
+        /// <returns>Экземпляр объекта класса QueryExecutor.</returns>
+        public static QueryExecutor GetInstance(ConfigurationDatabase configDb)
+        {
+            if (_instance == null)
+            {
+                _instance = new QueryExecutor(configDb);
+            }
+
+            return _instance;
         }
 
         /// <summary>
@@ -84,13 +112,15 @@ namespace MusicalPerformers.Model.Database.Interactions
         }
 
         /// <summary>
-        /// Получение значения для свойтва Value класса SqlParameter.
+        /// Проверка на существование пользователя.
         /// </summary>
-        /// <param name="value">Значение.</param>
-        /// <returns>Возвращает объект если он не пустой, иначе DBNull.Value</returns>
-        public object GetValueParameter(object value)
+        /// <param name="userId">Идентификационный номер пользователя.</param>
+        /// <returns>Возвращает True, если были обнаружены совпадения, иначе False.</returns>
+        public bool ContainsUser(int userId)
         {
-            return value != null ? value : DBNull.Value;
+            string query = $"SELECT TOP (1) * FROM [user] WHERE [user].[user_id] = {userId}";
+
+            return ExecuteQuery(query).Rows.Count > 0;
         }
 
         /// <summary>
@@ -100,7 +130,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Результат выполнения запроса.</returns>
         public DataTable ExecuteQuery(string query)
         {
-            if(query == null ? true : query.Length == 0)
+            if (query == null ? true : query.Length == 0)
             {
                 throw new ArgumentNullException("Запрос к базе данных не может быть пустым или длиной 0 символов.");
             }
@@ -114,32 +144,18 @@ namespace MusicalPerformers.Model.Database.Interactions
         }
 
         /// <summary>
-        /// Получение экземпляр объекта класса QueryExecutor.
+        /// Выполнение запроса в SQL Server.
         /// </summary>
-        /// <returns>Экземпляр объекта класса QueryExecutor.</returns>
-        public static QueryExecutor GetInstance()
+        /// <param name="query">Запрос к базе данных на языке T-SQL.</param>
+        /// <param name="parameters">Параметры, необходимые для подстановки значений в запросе.</param>
+        public void ExecuteQuery(string query, SqlParameter[] parameters)
         {
-            if(_instance == null)
-            {
-                _instance = new QueryExecutor();
-            }
+            var command = new SqlCommand(query, Connection);
+            command.Parameters.AddRange(parameters);
 
-            return _instance;
-        }
-
-        /// <summary>
-        /// Получение экземпляр объекта класса QueryExecutor.
-        /// </summary>
-        /// <param name="configDb">Конфигурация базы данных.</param>
-        /// <returns>Экземпляр объекта класса QueryExecutor.</returns>
-        public static QueryExecutor GetInstance(ConfigurationDatabase configDb)
-        {
-            if (_instance == null)
-            {
-                _instance = new QueryExecutor(configDb);
-            }
-
-            return _instance;
+            Connection.Open();
+            command.ExecuteNonQuery();
+            Connection.Close();
         }
 
         /// <summary>
@@ -149,7 +165,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Возвращает идентификационный номер должности.</returns>
         public int GetRoleId(string roleName)
         {
-            if(roleName == null ? true : roleName.Length == 0)
+            if (roleName == null ? true : roleName.Length == 0)
             {
                 throw new ArgumentNullException("Название должности не может быть пустым или длиной 0 символов.");
             }
@@ -168,6 +184,16 @@ namespace MusicalPerformers.Model.Database.Interactions
             string query = $"SELECT * FROM [role]";
 
             return ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Получение значения для свойтва Value класса SqlParameter.
+        /// </summary>
+        /// <param name="value">Значение.</param>
+        /// <returns>Возвращает объект если он не пустой, иначе DBNull.Value</returns>
+        public object GetValueParameter(object value)
+        {
+            return value != null ? value : DBNull.Value;
         }
 
         /// <summary>
@@ -200,34 +226,6 @@ namespace MusicalPerformers.Model.Database.Interactions
 
             ExecuteQuery(query);
         }
-
-        /// <summary>
-        /// Выполнение запроса в SQL Server.
-        /// </summary>
-        /// <param name="query">Запрос к базе данных на языке T-SQL.</param>
-        /// <param name="parameters">Параметры, необходимые для подстановки значений в запросе.</param>
-        public void ExecuteQuery(string query, SqlParameter[] parameters)
-        {
-            var command = new SqlCommand(query, Connection);
-            command.Parameters.AddRange(parameters);
-
-            Connection.Open();
-            command.ExecuteNonQuery();
-            Connection.Close();
-        }
-
-        /// <summary>
-        /// Проверка на существование пользователя.
-        /// </summary>
-        /// <param name="userId">Идентификационный номер пользователя.</param>
-        /// <returns>Возвращает True, если были обнаружены совпадения, иначе False.</returns>
-        public bool ContainsUser(int userId)
-        {
-            string query = $"SELECT TOP (1) * FROM [user] WHERE [user].[user_id] = {userId}";
-
-            return ExecuteQuery(query).Rows.Count > 0;
-        }
-
         /// <summary>
         /// Процесс авторизации пользователя.
         /// </summary>

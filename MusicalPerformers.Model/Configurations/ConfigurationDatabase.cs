@@ -6,27 +6,27 @@ using System.IO;
 namespace MusicalPerformers.Model.Configurations
 {
     /// <summary>
-    /// 
+    /// Класс, предназначенный для конфигурирования настроек базы данных.
     /// </summary>
     public class ConfigurationDatabase
     {
         /// <summary>
-        /// 
+        /// Адрес сервера базы данных.
         /// </summary>
         public string ServerAddress { get; set; }
 
         /// <summary>
-        /// 
+        /// Название базы данных.
         /// </summary>
         public string DatabaseName { get; set; }
 
         /// <summary>
-        /// 
+        /// Строка подключения к базе данных.
         /// </summary>
         public string ConnectionString { get; private set; }
 
         /// <summary>
-        /// 
+        /// Инициализирует новый экземпляр класса ConfigurationDatabase.
         /// </summary>
         public ConfigurationDatabase()
         {
@@ -36,10 +36,10 @@ namespace MusicalPerformers.Model.Configurations
         }
 
         /// <summary>
-        /// 
+        /// Инициализирует новый экземпляр класса ConfigurationDatabase.
         /// </summary>
-        /// <param name="serverAddress"></param>
-        /// <param name="databaseName"></param>
+        /// <param name="serverAddress">Адрес сервера базы данных.</param>
+        /// <param name="databaseName">Название базы данных.</param>
         public ConfigurationDatabase(string serverAddress, string databaseName)
         {
             if(serverAddress == null ? true : serverAddress.Length == 0)
@@ -58,7 +58,7 @@ namespace MusicalPerformers.Model.Configurations
         }
 
         /// <summary>
-        /// 
+        /// Сохраняет конфигурацию в файл.
         /// </summary>
         public void Save()
         {
@@ -66,9 +66,9 @@ namespace MusicalPerformers.Model.Configurations
         }
 
         /// <summary>
-        /// 
+        /// Сохраняет конфигурацию в файл.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">Путь к файлу для сохранения.</param>
         public void Save(string path)
         {
             if(path == null ? true : path.Length == 0)
@@ -80,18 +80,18 @@ namespace MusicalPerformers.Model.Configurations
         }
 
         /// <summary>
-        /// 
+        /// Возвращает строку, представляющую текущий объект.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Cтрока, представляющий текущий объект.</returns>
         public override string ToString()
         {
             return "ConfigurationDatabase";
         }
 
         /// <summary>
-        /// 
+        /// Получение конфигурации базы данных.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Конфигурация базы данных.</returns>
         public static ConfigurationDatabase GetConfiguration()
         {
             if(File.Exists("ConfigurationDatabase.json"))
@@ -114,10 +114,10 @@ namespace MusicalPerformers.Model.Configurations
         }
 
         /// <summary>
-        /// 
+        /// Получение конфигурации базы данных.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">Путь к расположению файла конфигурации базы данных.</param>
+        /// <returns>Конфигурация базы данных.</returns>
         public static ConfigurationDatabase GetConfiguration(string path)
         {
             if (File.Exists(path))
