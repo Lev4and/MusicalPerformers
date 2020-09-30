@@ -1,5 +1,4 @@
-﻿using MusicalPerformers.WinForms.Views.Forms;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace MusicalPerformers.WinForms
@@ -14,7 +13,7 @@ namespace MusicalPerformers.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(MusicalPerformers.WinForms.Views.Forms.Main.GetInstance());
         }
     }
 }
