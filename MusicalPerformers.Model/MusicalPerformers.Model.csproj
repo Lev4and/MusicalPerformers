@@ -44,10 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ConfigurationDatabase.cs" />
+    <Compile Include="Database\Interactions\DataActions\IAccordanable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IAddable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IContainsable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IFunctionable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IGetable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IProcedurable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IRemovable.cs" />
+    <Compile Include="Database\Interactions\DataActions\IUpdatable.cs" />
+    <Compile Include="Database\Interactions\IInteraction.cs" />
+    <Compile Include="Database\Interactions\QueryExecutor.cs" />
+    <Compile Include="Exceptions\InvalidFileExtensionException.cs" />
+    <Compile Include="Exceptions\InvalidObjectTypeException.cs" />
+    <Compile Include="Formatters\Parsers\PathParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\JsonSerializator.cs" />
+    <Compile Include="Serialization\Serializator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
