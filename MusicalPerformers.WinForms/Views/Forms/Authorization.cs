@@ -12,6 +12,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
     /// </summary>
     public partial class Authorization : Form
     {
+        #region Свойства
         /// <summary>
         /// Логин.
         /// </summary>
@@ -20,6 +21,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
         /// Пароль.
         /// </summary>
         private string _password;
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса Authorization.

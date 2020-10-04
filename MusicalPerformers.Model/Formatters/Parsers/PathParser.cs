@@ -15,6 +15,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         /// <returns>Возвращает значение true, если файл соответствует заданному расширению, иначе false.</returns>
         public static bool IsCorrectExtension(string path, string extension)
         {
+            #region Проверка аргументов метода
             if (path == null || path != null ? path.Length == 0 : false)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
@@ -24,6 +25,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
             {
                 throw new ArgumentNullException("extension", "Расширение файла не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             return path.EndsWith(extension);
         }
@@ -36,6 +38,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         /// <returns>Возвращает значение true, если файл соответствует к одному из заданных расширений, иначе false.</returns>
         public static bool IsCorrectExtension(string path, string[] extensions)
         {
+            #region Проверка аргументов метода
             if (path == null || path != null ? path.Length == 0 : false)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
@@ -45,6 +48,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
             {
                 throw new ArgumentNullException("extensions", "Массив расширений файлов оказался пустым или его длина имела 0 элементов.");
             }
+            #endregion
 
             for (int i = 0; i < extensions.Length; i++)
             {
@@ -62,10 +66,12 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         /// <returns></returns>
         public static string GetFileName(string path)
         {
+            #region Проверка аргументов метода
             if (path == null || path != null ? path.Length == 0 : false)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             return path.Substring(path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) + 1, path.LastIndexOf('.') - path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) - 1);
         }
@@ -77,10 +83,12 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         /// <returns></returns>
         public static string GetFileExtension(string path)
         {
+            #region Проверка аргументов метода
             if (path == null || path != null ? path.Length == 0 : false)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             return path.Substring(path.LastIndexOf('.'));
         }
@@ -92,10 +100,12 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         /// <returns></returns>
         public static string GetFileNameWithExtension(string path)
         {
+            #region Проверка аргументов метода
             if (path == null || path != null ? path.Length == 0 : false)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             return path.Substring(path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) + 1);
         }

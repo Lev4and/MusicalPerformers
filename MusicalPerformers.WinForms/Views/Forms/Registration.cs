@@ -9,6 +9,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
     /// </summary>
     public partial class Registration : Form
     {
+        #region Свойства
         /// <summary>
         /// Логин.
         /// </summary>
@@ -21,6 +22,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
         /// Подтвержденный пароль.
         /// </summary>
         private string _repatPassword;
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса Registration.

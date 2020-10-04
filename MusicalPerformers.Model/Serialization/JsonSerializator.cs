@@ -9,10 +9,12 @@ namespace MusicalPerformers.Model.Serialization
     /// </summary>
     public class JsonSerializator : Serializator
     {
+        #region Свойства
         /// <summary>
-        /// 
+        /// Экземпляр объекта класса JsonSerializator.
         /// </summary>
         private static JsonSerializator _instance;
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса JsonSerializator.
@@ -29,10 +31,12 @@ namespace MusicalPerformers.Model.Serialization
         /// <param name="path">Указанный путь для сохранения файла.</param>
         public override void Save(object obj, string path)
         {
-            if(path == null ? true : path.Length == 0)
+            #region Проверка аргументов метода
+            if (path == null ? true : path.Length == 0)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             File.WriteAllText(path, JsonConvert.SerializeObject(obj));
         }
@@ -44,10 +48,12 @@ namespace MusicalPerformers.Model.Serialization
         /// <returns>Возвращает десериализуемый объект класса.</returns>
         public override object Load(string path)
         {
+            #region Проверка аргументов метода
             if (path == null ? true : path.Length == 0)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             if (File.Exists(path))
             {
@@ -60,17 +66,19 @@ namespace MusicalPerformers.Model.Serialization
         }
 
         /// <summary>
-        /// 
+        /// Десериализует объект класса, из указанного файла.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Возвращаемый тип данных.</typeparam>
+        /// <param name="path">Путь расположения файла.</param>
+        /// <returns>Возвращает десериализуемый объект класса.</returns>
         public override T Load<T>(string path)
         {
+            #region Проверка аргументов метода
             if (path == null ? true : path.Length == 0)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             if (File.Exists(path))
             {
@@ -82,6 +90,10 @@ namespace MusicalPerformers.Model.Serialization
             }
         }
 
+        /// <summary>
+        /// Получение экземпляр объекта класса JsonSerializator.
+        /// </summary>
+        /// <returns>Экземпляр объекта класса JsonSerializator.</returns>
         public static JsonSerializator GetInstance()
         {
             if(_instance == null)

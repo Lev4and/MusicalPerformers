@@ -13,10 +13,12 @@ namespace MusicalPerformers.Model.Tests.Formatters
     [TestClass]
     public class DataFormatterTests
     {
+        #region Свойства
         /// <summary>
         /// Источник данных.
         /// </summary>
         private DataTable _source;
+        #endregion
 
         /// <summary>
         /// Инициализация теста.

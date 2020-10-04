@@ -13,10 +13,12 @@ namespace MusicalPerformers.Model.Exceptions
         /// <param name="message">Сообщение о причине, указывающее причину исключения.</param>
         public InvalidFileExtensionException(string message) : base(message)
         {
-            if(message == null ? true : message.Length == 0)
+            #region Проверка аргументов конструктора
+            if (message == null ? true : message.Length == 0)
             {
                 throw new ArgumentNullException("message", "Сообщение о причине не может быть пустым или длиной 0 символов.");
             }
+            #endregion
         }
     }
 }

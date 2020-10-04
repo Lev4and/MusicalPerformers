@@ -20,11 +20,11 @@
         public abstract object Load(string path);
 
         /// <summary>
-        /// 
+        /// Десериализует объект класса, из указанного файла.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Возвращаемый тип данных.</typeparam>
+        /// <param name="path">Путь расположения файла.</param>
+        /// <returns>Возвращает десериализуемый объект класса.</returns>
         public abstract T Load<T>(string path);
     }
 }

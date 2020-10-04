@@ -8,10 +8,16 @@ namespace MusicalPerformers.WinForms.Views.Forms
     /// </summary>
     public partial class Main : Form
     {
+        #region Свойства
         /// <summary>
         /// Экземпляр объекта класса Main.
         /// </summary>
         private static Main _instance;
+        /// <summary>
+        /// Инкапсулирует метод, который принимает два параметра и не возвращает значения, позволяющий скрыть форму.
+        /// </summary>
+        private EventHandler _hideForm;
+        #endregion
 
         /// <summary>
         /// Получение экземпляр объекта класса Main.
@@ -34,9 +40,11 @@ namespace MusicalPerformers.WinForms.Views.Forms
         {
             InitializeComponent();
 
-            Authorization.Click += (s, e) => { this.Visible = false; };
-            Registration.Click += (s, e) => { this.Visible = false; };
-            Settings.Click += (s, e) => { this.Visible = false; };
+            _hideForm = (s, e) => { this.Visible = false; };
+
+            Authorization.Click += _hideForm;
+            Registration.Click += _hideForm;
+            Settings.Click += _hideForm;
         }
 
         /// <summary>

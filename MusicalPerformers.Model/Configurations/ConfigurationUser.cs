@@ -10,6 +10,7 @@ namespace MusicalPerformers.Model.Configurations
     /// </summary>
     public class ConfigurationUser
     {
+        #region Свойства
         /// <summary>
         /// Экземпляр объекта класса ConfigurationUser.
         /// </summary>
@@ -24,6 +25,7 @@ namespace MusicalPerformers.Model.Configurations
         /// Название должности.
         /// </summary>
         public string RoleName { get; set; }
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса QueryExecutor.
@@ -32,10 +34,12 @@ namespace MusicalPerformers.Model.Configurations
         /// <param name="roleName">Название должности.</param>
         public ConfigurationUser(int userId, string roleName)
         {
+            #region Проверка аргументов конструктора класса
             if (roleName == null ? true : roleName.Length == 0)
             {
                 throw new ArgumentNullException("roleName", "Название должности не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             UserId = userId;
             RoleName = roleName;
@@ -71,10 +75,12 @@ namespace MusicalPerformers.Model.Configurations
         /// <param name="path">Путь к файлу для сохранения.</param>
         public void Save(string path)
         {
+            #region Проверка аргументов метода
             if (path == null ? true : path.Length == 0)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             JsonSerializator.GetInstance().Save(this, path);
         }

@@ -10,6 +10,7 @@ namespace MusicalPerformers.Model.Configurations
     /// </summary>
     public class ConfigurationDatabase
     {
+        #region Свойства
         /// <summary>
         /// Адрес сервера базы данных.
         /// </summary>
@@ -51,6 +52,7 @@ namespace MusicalPerformers.Model.Configurations
         /// Строка подключения к базе данных.
         /// </summary>
         public string ConnectionString { get; private set; }
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса ConfigurationDatabase.
@@ -69,7 +71,8 @@ namespace MusicalPerformers.Model.Configurations
         /// <param name="databaseName">Название базы данных.</param>
         public ConfigurationDatabase(string serverAddress, string databaseName)
         {
-            if(serverAddress == null ? true : serverAddress.Length == 0)
+            #region Проверка аргументов конструктора класса
+            if (serverAddress == null ? true : serverAddress.Length == 0)
             {
                 throw new ArgumentNullException("serverAddress", "Адрес сервера не может быть пустым или длиной 0 символов.");
             }
@@ -78,6 +81,7 @@ namespace MusicalPerformers.Model.Configurations
             {
                 throw new ArgumentNullException("databaseName", "Название базы данных не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             ServerAddress = serverAddress;
             DatabaseName = databaseName;
@@ -98,10 +102,12 @@ namespace MusicalPerformers.Model.Configurations
         /// <param name="path">Путь к файлу для сохранения.</param>
         public void Save(string path)
         {
-            if(path == null ? true : path.Length == 0)
+            #region Проверка аргументов метода
+            if (path == null ? true : path.Length == 0)
             {
                 throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             JsonSerializator.GetInstance().Save(this, path);
         }

@@ -11,17 +11,19 @@ namespace MusicalPerformers.Model.Tests.Serialization
     [TestClass]
     public class JsonSerializatorTests
     {
+        #region Свойства
         /// <summary>
-        /// 
+        /// Путь для сохранения файла.
         /// </summary>
         private string _fileSavePath;
         /// <summary>
-        /// 
+        /// Конфигурация базы данных.
         /// </summary>
         private ConfigurationDatabase _configDb;
+        #endregion
 
         /// <summary>
-        /// 
+        /// Инициализация теста.
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -31,7 +33,7 @@ namespace MusicalPerformers.Model.Tests.Serialization
         }
 
         /// <summary>
-        /// 
+        /// Тестирует метод Save класса JsonSerializator.
         /// </summary>
         [TestMethod]
         public void Save_ConfigDbAndFileSavePath_CreatedFile()
@@ -45,7 +47,7 @@ namespace MusicalPerformers.Model.Tests.Serialization
         }
 
         /// <summary>
-        /// 
+        /// Тестирует метод Load класса JsonSerializator.
         /// </summary>
         [TestMethod]
         public void Load_FileSavePath_ConfigurationDatabaseObject()

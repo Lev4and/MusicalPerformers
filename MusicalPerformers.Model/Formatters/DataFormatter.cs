@@ -17,7 +17,8 @@ namespace MusicalPerformers.Model.Formatters
         /// <returns>Возвращает значение ячейки из указанного источника и названия столбика. Возвращаемое значение извлекается из первой строки источника данных.</returns>
         public static T GetValue<T>(DataTable source, string columnName)
         {
-            if(source == null)
+            #region Проверка аргументов метода
+            if (source == null)
             {
                 throw new ArgumentNullException("source", "Источник данных не должен быть пустым");
             }
@@ -26,6 +27,7 @@ namespace MusicalPerformers.Model.Formatters
             {
                 throw new ArgumentNullException("columnName", "Название столбика не должно быть нулевым или длиной 0 символов.");
             }
+            #endregion
 
             return source.Rows[0].Field<T>(columnName);
         }
@@ -40,6 +42,7 @@ namespace MusicalPerformers.Model.Formatters
         /// <returns>Возвращает значение ячейки из определённой строки, указанного источника и названия столбика.</returns>
         public static T GetValue<T>(DataTable source, string columnName, int rowIndex)
         {
+            #region Проверка аргументов метода
             if (source == null)
             {
                 throw new ArgumentNullException("source", "Источник данных не должен быть пустым");
@@ -54,6 +57,7 @@ namespace MusicalPerformers.Model.Formatters
             {
                 throw new IndexOutOfRangeException("Индекс находится за пределами массива.");
             }
+            #endregion
 
             return source.Rows[rowIndex].Field<T>(columnName);
         }

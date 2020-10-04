@@ -9,10 +9,12 @@ namespace MusicalPerformers.Model.Tests.Configurations
     [TestClass]
     public class ConfigurationDatabaseTests
     {
+        #region Свойства
         /// <summary>
         /// Конфигурация базы данных.
         /// </summary>
         private ConfigurationDatabase _configDb;
+        #endregion
 
         /// <summary>
         /// Инициализация теста.

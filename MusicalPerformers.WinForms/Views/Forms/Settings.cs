@@ -9,6 +9,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
     /// </summary>
     public partial class Settings : Form
     {
+        #region Свойства
         /// <summary>
         /// Адрес сервера базы данных.
         /// </summary>
@@ -21,6 +22,7 @@ namespace MusicalPerformers.WinForms.Views.Forms
         /// Конфигурация базы данных.
         /// </summary>
         private ConfigurationDatabase _configDb;
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса Settings.

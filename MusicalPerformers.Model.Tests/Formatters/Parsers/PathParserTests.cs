@@ -9,6 +9,7 @@ namespace MusicalPerformers.Model.Tests.Formatters.Parsers
     [TestClass]
     public class PathParserTests
     {
+        #region Свойства
         /// <summary>
         /// Путь к файлу.
         /// </summary>
@@ -17,6 +18,7 @@ namespace MusicalPerformers.Model.Tests.Formatters.Parsers
         /// Расширение файла.
         /// </summary>
         private string _expansion;
+        #endregion
 
         /// <summary>
         /// Инициализация теста.

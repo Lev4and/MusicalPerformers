@@ -10,10 +10,22 @@ namespace MusicalPerformers.Model.Database.Interactions
     /// </summary>
     public class QueryExecutor : IInteraction
     {
+        #region Свойства
         /// <summary>
         /// Экземпляр объекта класса QueryExecutor.
         /// </summary>
         private static QueryExecutor _instance;
+
+        /// <summary>
+        /// Подключение к базе данных SQL Server.
+        /// </summary>
+        public SqlConnection Connection { get; set; }
+
+        /// <summary>
+        /// Доступ к пользовательским данным.
+        /// </summary>
+        public SqlDataAdapter DataAdapter { get; set; }
+        #endregion
 
         /// <summary>
         /// Инициализирует новый экземпляр класса QueryExecutor.
@@ -30,19 +42,17 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <param name="configDb">Конфигурация базы данных.</param>
         private QueryExecutor(ConfigurationDatabase configDb)
         {
+            #region Проверка аргументов конструктора класса
+            if (configDb == null)
+            {
+                throw new ArgumentNullException("configDb", "Конфигурация базы данных не может быть пустым.");
+            }
+            #endregion
+
             Connection = new SqlConnection(configDb.ConnectionString);
             DataAdapter = new SqlDataAdapter();
         }
 
-        /// <summary>
-        /// Подключение к базе данных SQL Server.
-        /// </summary>
-        public SqlConnection Connection { get; set; }
-
-        /// <summary>
-        /// Доступ к пользовательским данным.
-        /// </summary>
-        public SqlDataAdapter DataAdapter { get; set; }
         /// <summary>
         /// Получение экземпляр объекта класса QueryExecutor.
         /// </summary>
@@ -64,6 +74,13 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Экземпляр объекта класса QueryExecutor.</returns>
         public static QueryExecutor GetInstance(ConfigurationDatabase configDb)
         {
+            #region Проверка аргументов метода
+            if (configDb == null)
+            {
+                throw new ArgumentNullException("configDb", "Конфигурация базы данных не может быть пустым.");
+            }
+            #endregion
+
             if (_instance == null)
             {
                 _instance = new QueryExecutor(configDb);
@@ -130,10 +147,12 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Результат выполнения запроса.</returns>
         public DataTable ExecuteQuery(string query)
         {
+            #region Проверка аргументов метода
             if (query == null ? true : query.Length == 0)
             {
                 throw new ArgumentNullException("query", "Запрос к базе данных не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             var result = new DataTable();
 
@@ -165,10 +184,12 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Возвращает идентификационный номер должности.</returns>
         public int GetRoleId(string roleName)
         {
+            #region Проверка аргументов метода
             if (roleName == null ? true : roleName.Length == 0)
             {
                 throw new ArgumentNullException("roleName", "Название должности не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             string query = $"SELECT [role].[role_id] FROM [role] WHERE [role].[name] = '{roleName}'";
 
@@ -257,10 +278,12 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <param name="login">Логин.</param>
         public void RemoveUser(string login)
         {
+            #region Проверка аргументов метода
             if (login == null ? true : login.Length == 0)
             {
                 throw new ArgumentNullException("login", "Логин не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             string query = $"DELETE " +
                            $"FROM [user] " +
@@ -276,6 +299,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Возвращает True, если пользователь ввел верный логин и пароль, иначе False.</returns>
         public bool UserAuthorization(string login, string password)
         {
+            #region Проверка аргументов метода
             if (login == null ? true : login.Length == 0)
             {
                 throw new ArgumentNullException("login", "Логин не может быть пустым или длиной 0 символов.");
@@ -285,6 +309,7 @@ namespace MusicalPerformers.Model.Database.Interactions
             {
                 throw new ArgumentNullException("password", "Пароль не может быть пустым или длиной 0 символов.");
             }
+            #endregion
 
             string query = $"SELECT TOP (1) * " +
                            $"FROM [user] " +
