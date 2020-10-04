@@ -19,6 +19,8 @@ namespace MusicalPerformers.Model.Tests.Database.Interactions
         public void Initialize()
         {
             QueryExecutor.GetInstance(new ConfigurationDatabase()).RemoveUser("User");
+            QueryExecutor.GetInstance(new ConfigurationDatabase()).RemoveGenre("TestGenre2020");
+            QueryExecutor.GetInstance(new ConfigurationDatabase()).RemoveGenre("TestGenre2020_1");
         }
 
         /// <summary>
@@ -128,7 +130,7 @@ namespace MusicalPerformers.Model.Tests.Database.Interactions
         /// Тестирует метод GetRoles класса QueryExecutor.
         /// </summary>
         [TestMethod]
-        public void GetRoles()
+        public void GetRoles_RolesReturned()
         {
             var result = QueryExecutor.GetInstance().GetRoles();
 
@@ -190,6 +192,127 @@ namespace MusicalPerformers.Model.Tests.Database.Interactions
         {
             bool expected = false;
             bool actual = QueryExecutor.GetInstance().UserAuthorization("Admin", "1234");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод Genres класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void GetGenres_Name_GenresReturned()
+        {
+            var result = QueryExecutor.GetInstance().GetGenres("рок");
+
+            Debug.WriteLine($"Количество отобранных строк - {result.Rows.Count}");
+        }
+
+        /// <summary>
+        /// Тестирует метод Genres класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void GetGenres_Name_ExceptionReturned()
+        {
+            try
+            {
+                var result = QueryExecutor.GetInstance().GetGenres(null);
+            }
+            catch(Exception ex)
+            {
+                Assert.IsNotNull(ex);
+            }
+        }
+
+        /// <summary>
+        /// Тестирует метод AddGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void AddGenre_Name_FalseReturned()
+        {
+            bool expected = false;
+            bool actual = QueryExecutor.GetInstance().AddGenre("K-pop");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод AddGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void AddGenre_Name_TrueReturned()
+        {
+            bool expected = true;
+            bool actual = QueryExecutor.GetInstance().AddGenre("TestGenre2020");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод ContainsGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void ContainsGenre_Name_FalseReturned()
+        {
+            bool expected = false;
+            bool actual = QueryExecutor.GetInstance().ContainsGenre("TestGenre2020");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод ContainsGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void ContainsGenre_Name_TrueReturned()
+        {
+            bool expected = true;
+            bool actual = QueryExecutor.GetInstance().ContainsGenre("K-pop");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод GetGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void GetGenre_GenreId_MoreZeroRowsReturned()
+        {
+            Assert.IsTrue(QueryExecutor.GetInstance().GetGenre(2).Rows.Count > 0);
+        }
+
+        /// <summary>
+        /// Тестирует метод GetGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void GetGenre_GenreId_ZeroRowsReturned()
+        {
+            Assert.IsTrue(QueryExecutor.GetInstance().GetGenre(0).Rows.Count == 0);
+        }
+
+        /// <summary>
+        /// Тестирует метод UpdateGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void UpdateGenre_GenreIdAndName_TrueReturned()
+        {
+            QueryExecutor.GetInstance().AddGenre("TestGenre2020");
+
+            bool expected = true;
+            bool actual = QueryExecutor.GetInstance().UpdateGenre(QueryExecutor.GetInstance().GetGenreId("TestGenre2020"), "TestGenre2020_1");
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Тестирует метод UpdateGenre класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void UpdateGenre_GenreIdAndName_FalseReturned()
+        {
+            QueryExecutor.GetInstance().AddGenre("TestGenre2020");
+
+            bool expected = false;
+            bool actual = QueryExecutor.GetInstance().UpdateGenre(QueryExecutor.GetInstance().GetGenreId("TestGenre2020"), "TestGenre2020");
 
             Assert.AreEqual(expected, actual);
         }

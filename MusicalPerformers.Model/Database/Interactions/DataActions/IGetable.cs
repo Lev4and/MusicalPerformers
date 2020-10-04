@@ -8,11 +8,32 @@ namespace MusicalPerformers.Model.Database.Interactions.DataActions
     public interface IGetable
     {
         /// <summary>
+        /// Получение идентификационного номера жанра по указанному названию.
+        /// </summary>
+        /// <param name="genreName">Название жанра.</param>
+        /// <returns>Возвращает идентификационный номер жанра.</returns>
+        int GetGenreId(string genreName);
+
+        /// <summary>
         /// Получение идентификационного номера должности по указанному названию.
         /// </summary>
         /// <param name="roleName">Название должности.</param>
         /// <returns>Возвращает идентификационный номер должности.</returns>
         int GetRoleId(string roleName);
+
+        /// <summary>
+        /// Получение жанра.
+        /// </summary>
+        /// <param name="genreId">Идентификационный номер жанра.</param>
+        /// <returns>Возвращает жанр.</returns>
+        DataTable GetGenre(int genreId);
+
+        /// <summary>
+        /// Получение жанров.
+        /// </summary>
+        /// <param name="name">Название жанра.</param>
+        /// <returns>Жанры, прошедшие фильтрацию.</returns>
+        DataTable GetGenres(string name);
 
         /// <summary>
         /// Получение всех должностей.

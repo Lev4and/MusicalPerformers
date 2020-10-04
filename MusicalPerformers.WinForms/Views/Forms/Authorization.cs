@@ -103,7 +103,9 @@ namespace MusicalPerformers.WinForms.Views.Forms
                 {
                     RewriteAndSaveConfigurationUser();
 
-                    MessageBox.Show("Успех", "Уведомление");
+                    new Menu().Show();
+
+                    this.Close();
                 }
                 else
                 {

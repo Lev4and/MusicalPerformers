@@ -16,5 +16,17 @@
         /// </summary>
         /// <param name="login">Логин.</param>
         void RemoveUser(string login);
+
+        /// <summary>
+        /// Удаление жанра из базы данных.
+        /// </summary>
+        /// <param name="genreId">Идентификационный номер жанра.</param>
+        void RemoveGenre(int genreId);
+
+        /// <summary>
+        /// Удаление жанра из базы данных.
+        /// </summary>
+        /// <param name="genreName">название жанра.</param>
+        void RemoveGenre(string genreName);
     }
 }

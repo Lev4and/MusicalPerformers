@@ -18,5 +18,12 @@
         /// <param name="login">Логин.</param>
         /// <returns>Возвращает True, если были обнаружены совпадения, иначе False.</returns>
         bool ContainsUser(string login);
+
+        /// <summary>
+        /// Проверка на существование жанра.
+        /// </summary>
+        /// <param name="name">Название жанра.</param>
+        /// <returns>Возвращает True, если были обнаружены совпадения, иначе False.</returns>
+        bool ContainsGenre(string name);
     }
 }

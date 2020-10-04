@@ -214,16 +214,9 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Информация о пользователе.</returns>
         public DataTable GetUserInformation(int userId)
         {
-            string query = $"SELECT [user].[user_id], " +
-                           $"[role].[role_id], " +
-                           $"[role].[name] AS [role_name], " +
-                           $"[user].[login]," +
-                           $"[user].[password]," +
-                           $"[user].[date_of_registration]," +
-                           $"[user].[avatar]" +
-                           $"FROM [user] INNER JOIN " +
-                           $"[role] ON [role].[role_id] = [user].[role_id] " +
-                           $"WHERE [user].[user_id] = {userId}";
+            string query = $"SELECT * " +
+                           $"FROM [v_user_information] " +
+                           $"WHERE [v_user_information].[user_id] = {userId}";
 
             return ExecuteQuery(query);       
         }
@@ -235,16 +228,9 @@ namespace MusicalPerformers.Model.Database.Interactions
         /// <returns>Информация о пользователе.</returns>
         public DataTable GetUserInformation(string login)
         {
-            string query = $"SELECT [user].[user_id], " +
-                           $"[role].[role_id], " +
-                           $"[role].[name] AS [role_name], " +
-                           $"[user].[login]," +
-                           $"[user].[password]," +
-                           $"[user].[date_of_registration]," +
-                           $"[user].[avatar]" +
-                           $"FROM [user] INNER JOIN " +
-                           $"[role] ON [role].[role_id] = [user].[role_id] " +
-                           $"WHERE [user].[login] = '{login}'";
+            string query = $"SELECT * " +
+                           $"FROM [v_user_information] " +
+                           $"WHERE [v_user_information].[login] = '{login}'";
 
             return ExecuteQuery(query);
         }
@@ -316,6 +302,138 @@ namespace MusicalPerformers.Model.Database.Interactions
                            $"WHERE [user].[login] = '{login}' AND [user].[password] = '{password}'";
 
             return ExecuteQuery(query).Rows.Count > 0;
+        }
+
+        /// <summary>
+        /// Получение жанров.
+        /// </summary>
+        /// <param name="name">Название жанра.</param>
+        /// <returns>Жанры, прошедшие фильтрацию.</returns>
+        public DataTable GetGenres(string name)
+        {
+            #region Проверка аргументов метода
+            if (name == null)
+            {
+                throw new ArgumentNullException("name", "Название жанра не может быть пустым.");
+            }
+            #endregion
+
+            string query = $"SELECT * " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[name] LIKE '%{name}%'";
+
+            return ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Добавление нового жанра в базу данных.
+        /// </summary>
+        /// <param name="name">Название жанра.</param>
+        /// <returns>Возвращает True, если база данных успешно добавила новую запись, иначе False, если жанр с таким названием уже существует.</returns>
+        public bool AddGenre(string name)
+        {
+            if (!ContainsGenre(name))
+            {
+                string query = $"INSERT INTO [genre] " +
+                               $"([genre].[name]) " +
+                               $"VALUES ('{name}')";
+
+                ExecuteQuery(query);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Проверка на существование жанра.
+        /// </summary>
+        /// <param name="name">Название жанра.</param>
+        /// <returns>Возвращает True, если были обнаружены совпадения, иначе False.</returns>
+        public bool ContainsGenre(string name)
+        {
+            string query = $"SELECT TOP (1) * " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[name] = '{name}'";
+
+            return ExecuteQuery(query).Rows.Count > 0;
+        }
+
+        /// <summary>
+        /// Получение жанра.
+        /// </summary>
+        /// <param name="genreId">Идентификационный номер жанра.</param>
+        /// <returns>Возвращает жанр.</returns>
+        public DataTable GetGenre(int genreId)
+        {
+            string query = $"SELECT * " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[genre_id] = {genreId}";
+
+            return ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Удаление жанра из базы данных.
+        /// </summary>
+        /// <param name="genreId">Идентификационный номер жанра.</param>
+        public void RemoveGenre(int genreId)
+        {
+            string query = $"DELETE " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[genre_id] = {genreId}";
+
+            ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Обновление данных о жанре.
+        /// </summary>
+        /// <param name="genreId">Идентификационный номер жанра.</param>
+        /// <param name="genreName">Название жанра.</param>
+        /// <returns>Возвращает True, если база данных успешно обновила запись, иначе False, если жанр с таким названием уже существует.</returns>
+        public bool UpdateGenre(int genreId, string genreName)
+        {
+            if (!ContainsGenre(genreName))
+            {
+                string query = $"UPDATE [genre] " +
+                               $"SET [genre].[name] = '{genreName}' " +
+                               $"WHERE [genre].[genre_id] = {genreId}";
+
+                ExecuteQuery(query);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Удаление жанра из базы данных.
+        /// </summary>
+        /// <param name="genreName">название жанра.</param>
+        public void RemoveGenre(string genreName)
+        {
+            string query = $"DELETE " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[name] = '{genreName}'";
+
+            ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Получение идентификационного номера жанра по указанному названию.
+        /// </summary>
+        /// <param name="genreName">Название жанра.</param>
+        /// <returns>Возвращает идентификационный номер жанра.</returns>
+        public int GetGenreId(string genreName)
+        {
+            string query = $"SELECT TOP (1) [genre].[genre_id] " +
+                           $"FROM [genre] " +
+                           $"WHERE [genre].[name] = '{genreName}'";
+
+            return ExecuteQuery(query).Rows[0].Field<int>("genre_id");
         }
     }
 }

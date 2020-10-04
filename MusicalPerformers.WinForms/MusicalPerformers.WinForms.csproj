@@ -62,17 +62,41 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Forms\AddGenre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\AddGenre.Designer.cs">
+      <DependentUpon>AddGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\Authorization.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Forms\Authorization.Designer.cs">
       <DependentUpon>Authorization.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Forms\EditGenre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\EditGenre.Designer.cs">
+      <DependentUpon>EditGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Genres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\Genres.Designer.cs">
+      <DependentUpon>Genres.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Forms\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Forms\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Forms\Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Forms\Registration.cs">
       <SubType>Form</SubType>
@@ -96,11 +120,23 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Forms\AddGenre.resx">
+      <DependentUpon>AddGenre.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\EditGenre.resx">
+      <DependentUpon>EditGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Genres.resx">
+      <DependentUpon>Genres.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Forms\Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Forms\Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
@@ -130,11 +166,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Icons\Icon.ico" />
+    <Content Include="Resources\Interface\Add.png" />
     <Content Include="Resources\Interface\Back.png" />
     <Content Include="Resources\Interface\Database.png" />
+    <Content Include="Resources\Interface\Edit.png" />
     <Content Include="Resources\Interface\Lock.png" />
     <Content Include="Resources\Interface\Next.png" />
+    <Content Include="Resources\Interface\Remove.png" />
     <Content Include="Resources\Interface\Save.png" />
+    <Content Include="Resources\Interface\Search.png" />
     <Content Include="Resources\Interface\Server.png" />
     <Content Include="Resources\Interface\User.png" />
   </ItemGroup>
