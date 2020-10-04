@@ -31,7 +31,7 @@ namespace MusicalPerformers.Model.Serialization
         {
             if(path == null ? true : path.Length == 0)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             File.WriteAllText(path, JsonConvert.SerializeObject(obj));
@@ -46,7 +46,7 @@ namespace MusicalPerformers.Model.Serialization
         {
             if (path == null ? true : path.Length == 0)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             if (File.Exists(path))
@@ -55,7 +55,7 @@ namespace MusicalPerformers.Model.Serialization
             }
             else
             {
-                throw new FileNotFoundException("Файл не был найден.");
+                throw new FileNotFoundException("Файл не был найден.", path);
             }
         }
 
@@ -69,7 +69,7 @@ namespace MusicalPerformers.Model.Serialization
         {
             if (path == null ? true : path.Length == 0)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             if (File.Exists(path))
@@ -78,7 +78,7 @@ namespace MusicalPerformers.Model.Serialization
             }
             else
             {
-                throw new FileNotFoundException("Файл не был найден.");
+                throw new FileNotFoundException("Файл не был найден.", path);
             }
         }
 

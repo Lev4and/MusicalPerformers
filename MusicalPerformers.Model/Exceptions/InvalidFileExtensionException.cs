@@ -15,7 +15,7 @@ namespace MusicalPerformers.Model.Exceptions
         {
             if(message == null ? true : message.Length == 0)
             {
-                throw new ArgumentNullException("Сообщение о причине не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("message", "Сообщение о причине не может быть пустым или длиной 0 символов.");
             }
         }
     }

@@ -17,12 +17,12 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         {
             if (path == null || path != null ? path.Length == 0 : false)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             if (extension == null || extension != null ? extension.Length == 0 : false)
             {
-                throw new ArgumentNullException("Расширение файла не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("extension", "Расширение файла не может быть пустым или длиной 0 символов.");
             }
 
             return path.EndsWith(extension);
@@ -38,12 +38,12 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         {
             if (path == null || path != null ? path.Length == 0 : false)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             if (extensions == null || extensions != null ? extensions.Length == 0 : false)
             {
-                throw new ArgumentNullException("Массив расширений файлов оказался пустым или его длина имела 0 элементов.");
+                throw new ArgumentNullException("extensions", "Массив расширений файлов оказался пустым или его длина имела 0 элементов.");
             }
 
             for (int i = 0; i < extensions.Length; i++)
@@ -64,7 +64,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         {
             if (path == null || path != null ? path.Length == 0 : false)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             return path.Substring(path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) + 1, path.LastIndexOf('.') - path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) - 1);
@@ -79,7 +79,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         {
             if (path == null || path != null ? path.Length == 0 : false)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             return path.Substring(path.LastIndexOf('.'));
@@ -94,7 +94,7 @@ namespace MusicalPerformers.Model.Formatters.Parsers
         {
             if (path == null || path != null ? path.Length == 0 : false)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             return path.Substring(path.LastIndexOfAny(new char[2] { @"\"[0], '/' }) + 1);

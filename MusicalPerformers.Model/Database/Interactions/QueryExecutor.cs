@@ -132,7 +132,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         {
             if (query == null ? true : query.Length == 0)
             {
-                throw new ArgumentNullException("Запрос к базе данных не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("query", "Запрос к базе данных не может быть пустым или длиной 0 символов.");
             }
 
             var result = new DataTable();
@@ -167,7 +167,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         {
             if (roleName == null ? true : roleName.Length == 0)
             {
-                throw new ArgumentNullException("Название должности не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("roleName", "Название должности не может быть пустым или длиной 0 символов.");
             }
 
             string query = $"SELECT [role].[role_id] FROM [role] WHERE [role].[name] = '{roleName}'";
@@ -182,6 +182,48 @@ namespace MusicalPerformers.Model.Database.Interactions
         public DataTable GetRoles()
         {
             string query = $"SELECT * FROM [role]";
+
+            return ExecuteQuery(query);
+        }
+
+        /// <summary>
+        /// Получение пользовательской информации.
+        /// </summary>
+        /// <param name="userId">Идентификационный номер пользователя.</param>
+        /// <returns>Информация о пользователе.</returns>
+        public DataTable GetUserInformation(int userId)
+        {
+            string query = $"SELECT [user].[user_id], " +
+                           $"[role].[role_id], " +
+                           $"[role].[name] AS [role_name], " +
+                           $"[user].[login]," +
+                           $"[user].[password]," +
+                           $"[user].[date_of_registration]," +
+                           $"[user].[avatar]" +
+                           $"FROM [user] INNER JOIN " +
+                           $"[role] ON [role].[role_id] = [user].[role_id] " +
+                           $"WHERE [user].[user_id] = {userId}";
+
+            return ExecuteQuery(query);       
+        }
+
+        /// <summary>
+        /// Получение пользовательской информации.
+        /// </summary>
+        /// <param name="login">Логин.</param>
+        /// <returns>Информация о пользователе.</returns>
+        public DataTable GetUserInformation(string login)
+        {
+            string query = $"SELECT [user].[user_id], " +
+                           $"[role].[role_id], " +
+                           $"[role].[name] AS [role_name], " +
+                           $"[user].[login]," +
+                           $"[user].[password]," +
+                           $"[user].[date_of_registration]," +
+                           $"[user].[avatar]" +
+                           $"FROM [user] INNER JOIN " +
+                           $"[role] ON [role].[role_id] = [user].[role_id] " +
+                           $"WHERE [user].[login] = '{login}'";
 
             return ExecuteQuery(query);
         }
@@ -217,7 +259,7 @@ namespace MusicalPerformers.Model.Database.Interactions
         {
             if (login == null ? true : login.Length == 0)
             {
-                throw new ArgumentNullException("Логин не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("login", "Логин не может быть пустым или длиной 0 символов.");
             }
 
             string query = $"DELETE " +
@@ -236,12 +278,12 @@ namespace MusicalPerformers.Model.Database.Interactions
         {
             if (login == null ? true : login.Length == 0)
             {
-                throw new ArgumentNullException("Логин не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("login", "Логин не может быть пустым или длиной 0 символов.");
             }
 
             if (password == null ? true : password.Length == 0)
             {
-                throw new ArgumentNullException("Пароль не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("password", "Пароль не может быть пустым или длиной 0 символов.");
             }
 
             string query = $"SELECT TOP (1) * " +

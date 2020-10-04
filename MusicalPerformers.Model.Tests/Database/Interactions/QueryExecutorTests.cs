@@ -136,6 +136,17 @@ namespace MusicalPerformers.Model.Tests.Database.Interactions
         }
 
         /// <summary>
+        /// Тестирует метод GetUserInformation класса QueryExecutor.
+        /// </summary>
+        [TestMethod]
+        public void GetUserInformation_UserId()
+        {
+            var result = QueryExecutor.GetInstance().GetUserInformation(1);
+
+            Debug.WriteLine($"Количество отобранных строк - {result.Rows.Count}");
+        }
+
+        /// <summary>
         /// Тестирует метод ContainsUser класса QueryExecutor.
         /// </summary>
         [TestMethod]

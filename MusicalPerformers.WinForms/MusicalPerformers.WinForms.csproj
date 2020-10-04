@@ -130,9 +130,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Icons\Icon.ico" />
+    <Content Include="Resources\Interface\Back.png" />
+    <Content Include="Resources\Interface\Database.png" />
+    <Content Include="Resources\Interface\Lock.png" />
+    <Content Include="Resources\Interface\Next.png" />
+    <Content Include="Resources\Interface\Save.png" />
+    <Content Include="Resources\Interface\Server.png" />
+    <Content Include="Resources\Interface\User.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

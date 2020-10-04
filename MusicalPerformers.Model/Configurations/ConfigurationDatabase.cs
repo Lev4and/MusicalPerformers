@@ -13,12 +13,39 @@ namespace MusicalPerformers.Model.Configurations
         /// <summary>
         /// Адрес сервера базы данных.
         /// </summary>
-        public string ServerAddress { get; set; }
+        private string _serverAddress;
+        /// <summary>
+        /// Название базы данных.
+        /// </summary>
+        private string _databaseName;
+
+        /// <summary>
+        /// Адрес сервера базы данных.
+        /// </summary>
+        public string ServerAddress
+        {
+            get { return _serverAddress; }
+            set
+            {
+                _serverAddress = value;
+
+                ConnectionString = GenerateConnectionString();
+            }
+        }
 
         /// <summary>
         /// Название базы данных.
         /// </summary>
-        public string DatabaseName { get; set; }
+        public string DatabaseName
+        {
+            get { return _databaseName; }
+            set
+            {
+                _databaseName = value;
+
+                ConnectionString = GenerateConnectionString();
+            }
+        }
 
         /// <summary>
         /// Строка подключения к базе данных.
@@ -32,7 +59,7 @@ namespace MusicalPerformers.Model.Configurations
         {
             ServerAddress = @".";
             DatabaseName = "MusicalPerformers";
-            ConnectionString = $@"Data Source={ServerAddress}\SQLEXPRESS;Initial Catalog={DatabaseName};Integrated Security=True";
+            ConnectionString = GenerateConnectionString();
         }
 
         /// <summary>
@@ -44,17 +71,17 @@ namespace MusicalPerformers.Model.Configurations
         {
             if(serverAddress == null ? true : serverAddress.Length == 0)
             {
-                throw new ArgumentNullException("Адрес сервера не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("serverAddress", "Адрес сервера не может быть пустым или длиной 0 символов.");
             }
 
             if(databaseName == null ? true : databaseName.Length == 0)
             {
-                throw new ArgumentNullException("Название базы данных не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("databaseName", "Название базы данных не может быть пустым или длиной 0 символов.");
             }
 
             ServerAddress = serverAddress;
             DatabaseName = databaseName;
-            ConnectionString = $@"Data Source={ServerAddress}\SQLEXPRESS;Initial Catalog={DatabaseName};Integrated Security=True";
+            ConnectionString = GenerateConnectionString();
         }
 
         /// <summary>
@@ -73,7 +100,7 @@ namespace MusicalPerformers.Model.Configurations
         {
             if(path == null ? true : path.Length == 0)
             {
-                throw new ArgumentNullException("Путь к файлу не может быть пустым или длиной 0 символов.");
+                throw new ArgumentNullException("path", "Путь к файлу не может быть пустым или длиной 0 символов.");
             }
 
             JsonSerializator.GetInstance().Save(this, path);
@@ -104,12 +131,15 @@ namespace MusicalPerformers.Model.Configurations
                 }
                 else
                 {
-                    throw new InvalidObjectTypeException("Выходной тип объекта не соответствует ожидаемому.");
+                    var config = new ConfigurationDatabase();
+                    config.Save();
+
+                    return config;
                 }
             }
             else
             {
-                throw new FileNotFoundException("Файл конфигурации не был найден.");
+                throw new FileNotFoundException("Файл конфигурации не был найден.", "ConfigurationDatabase.json");
             }
         }
 
@@ -135,8 +165,16 @@ namespace MusicalPerformers.Model.Configurations
             }
             else
             {
-                throw new FileNotFoundException("Файл конфигурации не был найден.");
+                throw new FileNotFoundException("Файл конфигурации не был найден.", path);
             }
+        }
+
+        /// <summary>
+        /// Генерирует строку подключения к базе данных.
+        /// </summary>
+        private string GenerateConnectionString()
+        {
+            return $@"Data Source={ServerAddress}\SQLEXPRESS;Initial Catalog={DatabaseName};Integrated Security=True";
         }
     }
 }

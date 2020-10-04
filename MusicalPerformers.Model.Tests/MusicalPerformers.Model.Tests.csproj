@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationDatabaseTests.cs" />
     <Compile Include="Database\Interactions\QueryExecutorTests.cs" />
+    <Compile Include="Formatters\DataFormatterTests.cs" />
     <Compile Include="Formatters\Parsers\PathParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\JsonSerializatorTests.cs" />
